@@ -2,7 +2,7 @@ let board;
 const rowCount = 21;
 const columnCount = 19;
 const tileSize = 32;
-const offsetY = 60;
+const offsetY = 60; //offset udělá místo pro score a životy
 const boardWidth = columnCount * tileSize;
 const boardHeight = (rowCount * tileSize) + offsetY;
 let context;
@@ -87,7 +87,7 @@ window.onload = function () {
     loadImages();
     loadMap();
     update();
-    document.addEventListener("keydown", movePacman);
+    document.addEventListener("keydown", movePacman); //čeká na stisknutí klávesy
 };
 
 function loadImages() {
@@ -140,6 +140,7 @@ function update() {
     setTimeout(update, 50);
 }
 
+//změní směr pacmana když hráč stiskne klávesu
 function move() {
     if (pacman.nextDirection !== 'STAY') {
         let nextVel = pacman.updateVelocity(pacman.nextDirection);
@@ -165,6 +166,7 @@ function move() {
     pacman.x += pacman.velocityX;
     pacman.y += pacman.velocityY;
 
+    //pokud pacman narazí do stěny, zastaví se
     for (let wall of walls) {
         if (collision(pacman, wall)) {
             pacman.x -= pacman.velocityX;
@@ -187,7 +189,7 @@ function move() {
             }
         }
 
-        if (ghostHitWall || Math.random() < 0.05) {
+        if (ghostHitWall || Math.random() < 0.15) {
             ghost.x -= ghost.velocityX;
             ghost.y -= ghost.velocityY;
             let availableDirs = directions.filter(d => {
