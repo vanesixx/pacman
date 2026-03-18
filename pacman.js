@@ -189,7 +189,7 @@ function move() {
             }
         }
 
-        if (ghostHitWall || Math.random() < 0.15) {
+        if (ghostHitWall || Math.random() < 0.15) { //jestli duch narazí může změnit směr na 15%
             ghost.x -= ghost.velocityX;
             ghost.y -= ghost.velocityY;
             let availableDirs = directions.filter(d => {
@@ -211,6 +211,7 @@ function move() {
             }
         }
 
+        //jestli pacman narazí do ducha tak se mu ztratí život
         if (collision(ghost, pacman)) {
             lives--;
             if (lives <= 0) { gameOver = true; return; }
@@ -218,12 +219,13 @@ function move() {
         }
     }
 
+    //jezení jídla
     let foodEaten = null;
     for (let food of foods) {
         if (collision(pacman, food)) { foodEaten = food; score += 10; break; }
     }
     if (foodEaten) foods.delete(foodEaten);
-    if (foods.size === 0) { loadMap(); resetPositions(); }
+    if (foods.size === 0) { loadMap(); resetPositions(); } //pokud vše je snězeno tak se resetuje mapa
 }
 
 function draw() {
@@ -235,7 +237,7 @@ function draw() {
     context.textAlign = "center";
     context.fillText("SCORE: " + String(score).padStart(4, '0'), boardWidth / 2, 35);
 
-    context.textAlign = "left";
+    context.textAlign = "left"; //vykreslení srdíček
     let hearts = "";
     for(let i=0; i<lives; i++) hearts += "❤️";
     context.fillText(hearts, 10, 35);
@@ -252,6 +254,7 @@ function draw() {
     context.drawImage(pacman.image, pacman.x, pacman.y, pacman.width, pacman.height);
     for (let ghost of ghosts) context.drawImage(ghost.image, ghost.x, ghost.y, ghost.width, ghost.height);
 
+    //vykreslí gameover pokud je konec hry
     if (gameOver) {
         context.fillStyle = "red";
         context.font = "40px Courier";
