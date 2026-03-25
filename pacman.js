@@ -10,6 +10,7 @@ let context;
 let blueGhostImage, orangeGhostImage, pinkGhostImage, redGhostImage;
 let pacmanUpImage, pacmanDownImage, pacmanLeftImage, pacmanRightImage, wallImage;
 
+
 const tileMap = [
     "XXXXXXXXXXXXXXXXXXX",
     "X        X        X",
@@ -58,7 +59,7 @@ class Block {
         this.velocityX = 0;
         this.velocityY = 0;
     }
-
+    // Metoda pro výpočet rychlosti na základě zadaného směru
     updateVelocity(dir) {
         let vx = 0;
         let vy = 0;
@@ -78,7 +79,7 @@ class Block {
         this.nextDirection = 'STAY';
     }
 }
-
+// Spustí se po načtení celé webové stránky
 window.onload = function () {
     board = document.getElementById("board");
     board.height = boardHeight;
@@ -102,6 +103,7 @@ function loadImages() {
     pacmanRightImage = new Image(); pacmanRightImage.src = "./pacmanRight.png";
 }
 
+// Funkce, která převede textovou mapu na objekty v paměti
 function loadMap() {
     walls.clear();
     foods.clear();
