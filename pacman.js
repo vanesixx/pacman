@@ -144,7 +144,7 @@ function update() {
 
 //změní směr pacmana když hráč stiskne klávesu
 function move() {
-    if (pacman.nextDirection !== 'STAY') {
+    if (pacman.nextDirection !== 'STAY') { // Kontrola, zda může Pacman odbočit tam, kam chce hráč
         let nextVel = pacman.updateVelocity(pacman.nextDirection);
         pacman.x += nextVel.vx;
         pacman.y += nextVel.vy;
@@ -265,8 +265,9 @@ function draw() {
     }
 }
 
+// Reakce na klávesnici
 function movePacman(e) {
-    if (gameOver) {
+    if (gameOver) { // Pokud je hra u konce, stisk klávesy ji restartuje
         lives = 3; score = 0; gameOver = false;
         loadMap();
         resetPositions();
